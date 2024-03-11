@@ -294,6 +294,11 @@ export interface Params {
   bondDenom: string;
   /** min_commission_rate is the chain-wide minimum commission rate that a validator can charge their delegators */
   minCommissionRate: string;
+  /**
+   * global_min_self_delegation is the chain-wide minimum self delegation required for a validator to be active
+   * we jump index 10 to allow for future additions of cosmos-sdk
+   */
+  globalMinSelfDelegation: string;
 }
 /**
  * DelegationResponse is equivalent to Delegation except that it contains a
@@ -1529,6 +1534,7 @@ function createBaseParams(): Params {
     historicalEntries: 0,
     bondDenom: "",
     minCommissionRate: "",
+    globalMinSelfDelegation: "",
   };
 }
 export const Params = {
@@ -1551,6 +1557,9 @@ export const Params = {
     }
     if (message.minCommissionRate !== "") {
       writer.uint32(50).string(message.minCommissionRate);
+    }
+    if (message.globalMinSelfDelegation !== "") {
+      writer.uint32(82).string(message.globalMinSelfDelegation);
     }
     return writer;
   },
@@ -1579,6 +1588,9 @@ export const Params = {
         case 6:
           message.minCommissionRate = reader.string();
           break;
+        case 10:
+          message.globalMinSelfDelegation = reader.string();
+          break;
         default:
           reader.skipType(tag & 7);
           break;
@@ -1594,6 +1606,8 @@ export const Params = {
     if (isSet(object.historicalEntries)) obj.historicalEntries = Number(object.historicalEntries);
     if (isSet(object.bondDenom)) obj.bondDenom = String(object.bondDenom);
     if (isSet(object.minCommissionRate)) obj.minCommissionRate = String(object.minCommissionRate);
+    if (isSet(object.globalMinSelfDelegation))
+      obj.globalMinSelfDelegation = String(object.globalMinSelfDelegation);
     return obj;
   },
   toJSON(message: Params): unknown {
@@ -1606,6 +1620,8 @@ export const Params = {
       (obj.historicalEntries = Math.round(message.historicalEntries));
     message.bondDenom !== undefined && (obj.bondDenom = message.bondDenom);
     message.minCommissionRate !== undefined && (obj.minCommissionRate = message.minCommissionRate);
+    message.globalMinSelfDelegation !== undefined &&
+      (obj.globalMinSelfDelegation = message.globalMinSelfDelegation);
     return obj;
   },
   fromPartial<I extends Exact<DeepPartial<Params>, I>>(object: I): Params {
@@ -1618,6 +1634,7 @@ export const Params = {
     message.historicalEntries = object.historicalEntries ?? 0;
     message.bondDenom = object.bondDenom ?? "";
     message.minCommissionRate = object.minCommissionRate ?? "";
+    message.globalMinSelfDelegation = object.globalMinSelfDelegation ?? "";
     return message;
   },
 };

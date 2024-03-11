@@ -112,6 +112,31 @@ export interface MsgUpdateParams {
  * Since: cosmos-sdk 0.47
  */
 export interface MsgUpdateParamsResponse {}
+/** MsgCreateValidatorForOther defines a SDK message for creating a new validator. */
+export interface MsgCreateValidatorForOther {
+  description: Description;
+  commission: CommissionRates;
+  minSelfDelegation: string;
+  payerAddress: string;
+  delegatorAddress: string;
+  validatorAddress: string;
+  pubkey?: Any;
+  value: Coin;
+}
+/** MsgCreateValidatorForOtherResponse defines the Msg/CreateValidatorForOther response type. */
+export interface MsgCreateValidatorForOtherResponse {}
+/**
+ * MsgDelegateForOther defines a SDK message for performing a delegation of coins
+ * from a payer to a validator but delegator is not payer.
+ */
+export interface MsgDelegateForOther {
+  payerAddress: string;
+  delegatorAddress: string;
+  validatorAddress: string;
+  amount: Coin;
+}
+/** MsgDelegateResponse defines the Msg/DelegateForOther response type. */
+export interface MsgDelegateForOtherResponse {}
 function createBaseMsgCreateValidator(): MsgCreateValidator {
   return {
     description: Description.fromPartial({}),
@@ -942,6 +967,286 @@ export const MsgUpdateParamsResponse = {
     return message;
   },
 };
+function createBaseMsgCreateValidatorForOther(): MsgCreateValidatorForOther {
+  return {
+    description: Description.fromPartial({}),
+    commission: CommissionRates.fromPartial({}),
+    minSelfDelegation: "",
+    payerAddress: "",
+    delegatorAddress: "",
+    validatorAddress: "",
+    pubkey: undefined,
+    value: Coin.fromPartial({}),
+  };
+}
+export const MsgCreateValidatorForOther = {
+  typeUrl: "/cosmos.staking.v1beta1.MsgCreateValidatorForOther",
+  encode(message: MsgCreateValidatorForOther, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
+    if (message.description !== undefined) {
+      Description.encode(message.description, writer.uint32(10).fork()).ldelim();
+    }
+    if (message.commission !== undefined) {
+      CommissionRates.encode(message.commission, writer.uint32(18).fork()).ldelim();
+    }
+    if (message.minSelfDelegation !== "") {
+      writer.uint32(26).string(message.minSelfDelegation);
+    }
+    if (message.payerAddress !== "") {
+      writer.uint32(34).string(message.payerAddress);
+    }
+    if (message.delegatorAddress !== "") {
+      writer.uint32(42).string(message.delegatorAddress);
+    }
+    if (message.validatorAddress !== "") {
+      writer.uint32(50).string(message.validatorAddress);
+    }
+    if (message.pubkey !== undefined) {
+      Any.encode(message.pubkey, writer.uint32(58).fork()).ldelim();
+    }
+    if (message.value !== undefined) {
+      Coin.encode(message.value, writer.uint32(66).fork()).ldelim();
+    }
+    return writer;
+  },
+  decode(input: BinaryReader | Uint8Array, length?: number): MsgCreateValidatorForOther {
+    const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseMsgCreateValidatorForOther();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.description = Description.decode(reader, reader.uint32());
+          break;
+        case 2:
+          message.commission = CommissionRates.decode(reader, reader.uint32());
+          break;
+        case 3:
+          message.minSelfDelegation = reader.string();
+          break;
+        case 4:
+          message.payerAddress = reader.string();
+          break;
+        case 5:
+          message.delegatorAddress = reader.string();
+          break;
+        case 6:
+          message.validatorAddress = reader.string();
+          break;
+        case 7:
+          message.pubkey = Any.decode(reader, reader.uint32());
+          break;
+        case 8:
+          message.value = Coin.decode(reader, reader.uint32());
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+  fromJSON(object: any): MsgCreateValidatorForOther {
+    const obj = createBaseMsgCreateValidatorForOther();
+    if (isSet(object.description)) obj.description = Description.fromJSON(object.description);
+    if (isSet(object.commission)) obj.commission = CommissionRates.fromJSON(object.commission);
+    if (isSet(object.minSelfDelegation)) obj.minSelfDelegation = String(object.minSelfDelegation);
+    if (isSet(object.payerAddress)) obj.payerAddress = String(object.payerAddress);
+    if (isSet(object.delegatorAddress)) obj.delegatorAddress = String(object.delegatorAddress);
+    if (isSet(object.validatorAddress)) obj.validatorAddress = String(object.validatorAddress);
+    if (isSet(object.pubkey)) obj.pubkey = Any.fromJSON(object.pubkey);
+    if (isSet(object.value)) obj.value = Coin.fromJSON(object.value);
+    return obj;
+  },
+  toJSON(message: MsgCreateValidatorForOther): unknown {
+    const obj: any = {};
+    message.description !== undefined &&
+      (obj.description = message.description ? Description.toJSON(message.description) : undefined);
+    message.commission !== undefined &&
+      (obj.commission = message.commission ? CommissionRates.toJSON(message.commission) : undefined);
+    message.minSelfDelegation !== undefined && (obj.minSelfDelegation = message.minSelfDelegation);
+    message.payerAddress !== undefined && (obj.payerAddress = message.payerAddress);
+    message.delegatorAddress !== undefined && (obj.delegatorAddress = message.delegatorAddress);
+    message.validatorAddress !== undefined && (obj.validatorAddress = message.validatorAddress);
+    message.pubkey !== undefined && (obj.pubkey = message.pubkey ? Any.toJSON(message.pubkey) : undefined);
+    message.value !== undefined && (obj.value = message.value ? Coin.toJSON(message.value) : undefined);
+    return obj;
+  },
+  fromPartial<I extends Exact<DeepPartial<MsgCreateValidatorForOther>, I>>(
+    object: I,
+  ): MsgCreateValidatorForOther {
+    const message = createBaseMsgCreateValidatorForOther();
+    if (object.description !== undefined && object.description !== null) {
+      message.description = Description.fromPartial(object.description);
+    }
+    if (object.commission !== undefined && object.commission !== null) {
+      message.commission = CommissionRates.fromPartial(object.commission);
+    }
+    message.minSelfDelegation = object.minSelfDelegation ?? "";
+    message.payerAddress = object.payerAddress ?? "";
+    message.delegatorAddress = object.delegatorAddress ?? "";
+    message.validatorAddress = object.validatorAddress ?? "";
+    if (object.pubkey !== undefined && object.pubkey !== null) {
+      message.pubkey = Any.fromPartial(object.pubkey);
+    }
+    if (object.value !== undefined && object.value !== null) {
+      message.value = Coin.fromPartial(object.value);
+    }
+    return message;
+  },
+};
+function createBaseMsgCreateValidatorForOtherResponse(): MsgCreateValidatorForOtherResponse {
+  return {};
+}
+export const MsgCreateValidatorForOtherResponse = {
+  typeUrl: "/cosmos.staking.v1beta1.MsgCreateValidatorForOtherResponse",
+  encode(_: MsgCreateValidatorForOtherResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
+    return writer;
+  },
+  decode(input: BinaryReader | Uint8Array, length?: number): MsgCreateValidatorForOtherResponse {
+    const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseMsgCreateValidatorForOtherResponse();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+  fromJSON(_: any): MsgCreateValidatorForOtherResponse {
+    const obj = createBaseMsgCreateValidatorForOtherResponse();
+    return obj;
+  },
+  toJSON(_: MsgCreateValidatorForOtherResponse): unknown {
+    const obj: any = {};
+    return obj;
+  },
+  fromPartial<I extends Exact<DeepPartial<MsgCreateValidatorForOtherResponse>, I>>(
+    _: I,
+  ): MsgCreateValidatorForOtherResponse {
+    const message = createBaseMsgCreateValidatorForOtherResponse();
+    return message;
+  },
+};
+function createBaseMsgDelegateForOther(): MsgDelegateForOther {
+  return {
+    payerAddress: "",
+    delegatorAddress: "",
+    validatorAddress: "",
+    amount: Coin.fromPartial({}),
+  };
+}
+export const MsgDelegateForOther = {
+  typeUrl: "/cosmos.staking.v1beta1.MsgDelegateForOther",
+  encode(message: MsgDelegateForOther, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
+    if (message.payerAddress !== "") {
+      writer.uint32(10).string(message.payerAddress);
+    }
+    if (message.delegatorAddress !== "") {
+      writer.uint32(18).string(message.delegatorAddress);
+    }
+    if (message.validatorAddress !== "") {
+      writer.uint32(26).string(message.validatorAddress);
+    }
+    if (message.amount !== undefined) {
+      Coin.encode(message.amount, writer.uint32(34).fork()).ldelim();
+    }
+    return writer;
+  },
+  decode(input: BinaryReader | Uint8Array, length?: number): MsgDelegateForOther {
+    const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseMsgDelegateForOther();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.payerAddress = reader.string();
+          break;
+        case 2:
+          message.delegatorAddress = reader.string();
+          break;
+        case 3:
+          message.validatorAddress = reader.string();
+          break;
+        case 4:
+          message.amount = Coin.decode(reader, reader.uint32());
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+  fromJSON(object: any): MsgDelegateForOther {
+    const obj = createBaseMsgDelegateForOther();
+    if (isSet(object.payerAddress)) obj.payerAddress = String(object.payerAddress);
+    if (isSet(object.delegatorAddress)) obj.delegatorAddress = String(object.delegatorAddress);
+    if (isSet(object.validatorAddress)) obj.validatorAddress = String(object.validatorAddress);
+    if (isSet(object.amount)) obj.amount = Coin.fromJSON(object.amount);
+    return obj;
+  },
+  toJSON(message: MsgDelegateForOther): unknown {
+    const obj: any = {};
+    message.payerAddress !== undefined && (obj.payerAddress = message.payerAddress);
+    message.delegatorAddress !== undefined && (obj.delegatorAddress = message.delegatorAddress);
+    message.validatorAddress !== undefined && (obj.validatorAddress = message.validatorAddress);
+    message.amount !== undefined && (obj.amount = message.amount ? Coin.toJSON(message.amount) : undefined);
+    return obj;
+  },
+  fromPartial<I extends Exact<DeepPartial<MsgDelegateForOther>, I>>(object: I): MsgDelegateForOther {
+    const message = createBaseMsgDelegateForOther();
+    message.payerAddress = object.payerAddress ?? "";
+    message.delegatorAddress = object.delegatorAddress ?? "";
+    message.validatorAddress = object.validatorAddress ?? "";
+    if (object.amount !== undefined && object.amount !== null) {
+      message.amount = Coin.fromPartial(object.amount);
+    }
+    return message;
+  },
+};
+function createBaseMsgDelegateForOtherResponse(): MsgDelegateForOtherResponse {
+  return {};
+}
+export const MsgDelegateForOtherResponse = {
+  typeUrl: "/cosmos.staking.v1beta1.MsgDelegateForOtherResponse",
+  encode(_: MsgDelegateForOtherResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
+    return writer;
+  },
+  decode(input: BinaryReader | Uint8Array, length?: number): MsgDelegateForOtherResponse {
+    const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseMsgDelegateForOtherResponse();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+  fromJSON(_: any): MsgDelegateForOtherResponse {
+    const obj = createBaseMsgDelegateForOtherResponse();
+    return obj;
+  },
+  toJSON(_: MsgDelegateForOtherResponse): unknown {
+    const obj: any = {};
+    return obj;
+  },
+  fromPartial<I extends Exact<DeepPartial<MsgDelegateForOtherResponse>, I>>(
+    _: I,
+  ): MsgDelegateForOtherResponse {
+    const message = createBaseMsgDelegateForOtherResponse();
+    return message;
+  },
+};
 /** Msg defines the staking Msg service. */
 export interface Msg {
   /** CreateValidator defines a method for creating a new validator. */
@@ -978,6 +1283,10 @@ export interface Msg {
    * Since: cosmos-sdk 0.47
    */
   UpdateParams(request: MsgUpdateParams): Promise<MsgUpdateParamsResponse>;
+  /** CreateValidatorForOther defines a method for creating a new validator but payer is not delegator. */
+  CreateValidatorForOther(request: MsgCreateValidatorForOther): Promise<MsgCreateValidatorForOtherResponse>;
+  /** DelegateForOther defines a method for performing a delegation of coins but payer is not delegator. */
+  DelegateForOther(request: MsgDelegateForOther): Promise<MsgDelegateForOtherResponse>;
 }
 export class MsgClientImpl implements Msg {
   private readonly rpc: Rpc;
@@ -990,6 +1299,8 @@ export class MsgClientImpl implements Msg {
     this.Undelegate = this.Undelegate.bind(this);
     this.CancelUnbondingDelegation = this.CancelUnbondingDelegation.bind(this);
     this.UpdateParams = this.UpdateParams.bind(this);
+    this.CreateValidatorForOther = this.CreateValidatorForOther.bind(this);
+    this.DelegateForOther = this.DelegateForOther.bind(this);
   }
   CreateValidator(request: MsgCreateValidator): Promise<MsgCreateValidatorResponse> {
     const data = MsgCreateValidator.encode(request).finish();
@@ -1027,5 +1338,15 @@ export class MsgClientImpl implements Msg {
     const data = MsgUpdateParams.encode(request).finish();
     const promise = this.rpc.request("cosmos.staking.v1beta1.Msg", "UpdateParams", data);
     return promise.then((data) => MsgUpdateParamsResponse.decode(new BinaryReader(data)));
+  }
+  CreateValidatorForOther(request: MsgCreateValidatorForOther): Promise<MsgCreateValidatorForOtherResponse> {
+    const data = MsgCreateValidatorForOther.encode(request).finish();
+    const promise = this.rpc.request("cosmos.staking.v1beta1.Msg", "CreateValidatorForOther", data);
+    return promise.then((data) => MsgCreateValidatorForOtherResponse.decode(new BinaryReader(data)));
+  }
+  DelegateForOther(request: MsgDelegateForOther): Promise<MsgDelegateForOtherResponse> {
+    const data = MsgDelegateForOther.encode(request).finish();
+    const promise = this.rpc.request("cosmos.staking.v1beta1.Msg", "DelegateForOther", data);
+    return promise.then((data) => MsgDelegateForOtherResponse.decode(new BinaryReader(data)));
   }
 }

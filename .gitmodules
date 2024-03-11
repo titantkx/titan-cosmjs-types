@@ -1,9 +1,12 @@
 [submodule "cosmos-sdk"]
 	path = protos/cosmos-sdk
-	url = https://github.com/cosmos/cosmos-sdk
+	url = https://github.com/tokenize-titan/cosmos-sdk.git
 [submodule "wasmd"]
 	path = protos/wasmd-src
 	url = https://github.com/CosmWasm/wasmd.git
 [submodule "ibc-go"]
 	path = protos/ibc-go-src
 	url = https://github.com/cosmos/ibc-go
+[submodule "titan-src"]
+	path = protos/titan-src
+	url = https://github.com/tokenize-titan/titan.git
