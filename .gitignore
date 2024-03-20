@@ -5,6 +5,7 @@ node_modules/
 
 /protos/ibc-go
 /protos/wasmd
+/protos/titan
 
 /build/
 /confio/
