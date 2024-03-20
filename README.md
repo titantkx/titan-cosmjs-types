@@ -1,6 +1,6 @@
-# cosmjs-types
+# titan-cosmjs-types
 
-[![npm version](https://img.shields.io/npm/v/cosmjs-types.svg)](https://www.npmjs.com/package/cosmjs-types)
+[![npm version](https://img.shields.io/npm/v/titan-cosmjs-types.svg)](https://www.npmjs.com/package/titan-cosmjs-types)
 
 ## Maintenance
 
@@ -23,3 +23,9 @@ npm install
 npm run codegen # Generate .ts files into ./src
 npm run build # Build .js/.d.ts files
 ```
+
+## Versions
+
+| Version | Tag            | cosmos-sdk      | ibc-go | wasmd   | titan  |
+| ------- | -------------- | --------------- | ------ | ------- | ------ |
+| v0.9.0  | v0.9.0-titan.1 | v0.47.6-titan.3 | v7.0.0 | v0.31.0 | v2.0.0 |
