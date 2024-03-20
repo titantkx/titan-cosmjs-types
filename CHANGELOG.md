@@ -8,11 +8,18 @@ and this project adheres to
 
 ## [Unreleased]
 
+## [0.10.0] - 2024-03-20
+
+- Upgrade to Titan v2.0.1
+- Upgrade Cosmos SDK types to v0.47.6-titan.4
+- Upgrade ibc-go types to v7.3.0
+- Upgrade wasmd types to v0.45.0
+
 ## [0.9.0] - 2023-10-25
 
 - Upgrade to Telescope 1.0. This changes a lot of fields from optional to
   non-optional by utilizing the `(gogoproto.nullable) = false` annotations of
-  proto files. See https://github.com/osmosis-labs/telescope/issues/386
+  proto files. See <https://github.com/osmosis-labs/telescope/issues/386>
 - Switch to bigint for 64 bit integers. This means users can remove the
   `"long": "^4.0.0"` dependency in most cases.
 - Remove runtime dependency `protobufjs` which is not required anymore by the

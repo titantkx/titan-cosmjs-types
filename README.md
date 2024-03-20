@@ -26,6 +26,7 @@ npm run build # Build .js/.d.ts files
 
 ## Versions
 
-| Version | Tag            | cosmos-sdk      | ibc-go | wasmd   | titan  |
-| ------- | -------------- | --------------- | ------ | ------- | ------ |
-| v0.9.0  | v0.9.0-titan.1 | v0.47.6-titan.3 | v7.0.0 | v0.31.0 | v2.0.0 |
+| Version | Tag            | titan  | cosmos-sdk      | ibc-go | wasmd   |
+| ------- | -------------- | ------ | --------------- | ------ | ------- |
+| v0.10.0 | v0.10.0        | v2.0.1 | v0.47.6-titan.4 | v7.3.0 | v0.45.0 |
+| v0.9.0  | v0.9.0-titan.1 | v2.0.0 | v0.47.6-titan.3 | v7.0.0 | v0.31.0 |

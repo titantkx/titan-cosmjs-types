@@ -78,6 +78,7 @@ export interface MsgChannelOpenTry {
 /** MsgChannelOpenTryResponse defines the Msg/ChannelOpenTry response type. */
 export interface MsgChannelOpenTryResponse {
   version: string;
+  channelId: string;
 }
 /**
  * MsgChannelOpenAck defines a msg sent by a Relayer to Chain A to acknowledge
@@ -430,6 +431,7 @@ export const MsgChannelOpenTry = {
 function createBaseMsgChannelOpenTryResponse(): MsgChannelOpenTryResponse {
   return {
     version: "",
+    channelId: "",
   };
 }
 export const MsgChannelOpenTryResponse = {
@@ -437,6 +439,9 @@ export const MsgChannelOpenTryResponse = {
   encode(message: MsgChannelOpenTryResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.version !== "") {
       writer.uint32(10).string(message.version);
+    }
+    if (message.channelId !== "") {
+      writer.uint32(18).string(message.channelId);
     }
     return writer;
   },
@@ -450,6 +455,9 @@ export const MsgChannelOpenTryResponse = {
         case 1:
           message.version = reader.string();
           break;
+        case 2:
+          message.channelId = reader.string();
+          break;
         default:
           reader.skipType(tag & 7);
           break;
@@ -460,11 +468,13 @@ export const MsgChannelOpenTryResponse = {
   fromJSON(object: any): MsgChannelOpenTryResponse {
     const obj = createBaseMsgChannelOpenTryResponse();
     if (isSet(object.version)) obj.version = String(object.version);
+    if (isSet(object.channelId)) obj.channelId = String(object.channelId);
     return obj;
   },
   toJSON(message: MsgChannelOpenTryResponse): unknown {
     const obj: any = {};
     message.version !== undefined && (obj.version = message.version);
+    message.channelId !== undefined && (obj.channelId = message.channelId);
     return obj;
   },
   fromPartial<I extends Exact<DeepPartial<MsgChannelOpenTryResponse>, I>>(
@@ -472,6 +482,7 @@ export const MsgChannelOpenTryResponse = {
   ): MsgChannelOpenTryResponse {
     const message = createBaseMsgChannelOpenTryResponse();
     message.version = object.version ?? "";
+    message.channelId = object.channelId ?? "";
     return message;
   },
 };

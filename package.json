@@ -1,17 +1,18 @@
 {
   "name": "titan-cosmjs-types",
-  "version": "0.9.0",
+  "version": "0.10.0",
   "description": "JS and TS types relating to Protocol Buffers used by Cosmos SDK and other related projects",
   "contributors": [
     "Simon Warta <webmaster128@users.noreply.github.com>",
     "Will Clark <willclarktech@users.noreply.github.com>",
     "Dan Lynch <pyramation@gmail.com>",
-    "Hung Doan <hugjobk@gmail.com>"
+    "Hung Doan <hugjobk@gmail.com>",
+    "InnerPeace080 <tranphuong.080@gmail.com>"
   ],
   "license": "Apache-2.0",
   "repository": {
     "type": "git",
-    "url": "https://github.com/tokenize-titan/titan-cosmjs-types"
+    "url": "https://github.com/titantkx/titan-cosmjs-types"
   },
   "publishConfig": {
     "access": "public",
@@ -42,8 +43,7 @@
     "prepare-publishing": "./scripts/prepare-publishing.sh",
     "build": "rm -rf ./build && tsc && npm run prepare-publishing"
   },
-  "dependencies": {
-  },
+  "dependencies": {},
   "devDependencies": {
     "@cosmology/telescope": "^1.0.7",
     "@types/node": "^15.6.2",
